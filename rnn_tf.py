@@ -26,7 +26,7 @@ class ModelNetwork:
         in   (in_size)
     """
     def __init__(self, in_size, lstm_size, num_layers, out_size, session,
-                 learning_rate=0.003, name="rnn"):
+                 learning_rate=0.0001, name="rnn"):
         self.scope = name
         self.in_size = in_size
         self.lstm_size = lstm_size
@@ -98,7 +98,7 @@ class ModelNetwork:
             )
             y_batch_long = tf.reshape(self.y_batch, [-1, self.out_size])
             self.cost = tf.reduce_mean(
-                tf.nn.softmax_cross_entropy_with_logits(
+                tf.nn.softmax_cross_entropy_with_logits_v2 (
                     logits=network_output,
                     labels=y_batch_long
                 )
@@ -221,9 +221,9 @@ def main():
     data, vocab = load_data(args.input_file)
 
     in_size = out_size = len(vocab)
-    lstm_size = 256  # 128
+    lstm_size = 512 # 128
     num_layers = 2
-    batch_size = 64  # 128
+    batch_size = 128  # 128
     time_steps = 100  # 50
 
     NUM_TRAIN_BATCHES = 20000
@@ -241,7 +241,7 @@ def main():
         num_layers=num_layers,
         out_size=out_size,
         session=sess,
-        learning_rate=0.003,
+        learning_rate=0.0001,
         name="char_rnn_network"
     )
     sess.run(tf.global_variables_initializer())
