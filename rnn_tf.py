@@ -226,7 +226,7 @@ def main():
     batch_size = 128  # 128
     time_steps = 100  # 50
 
-    NUM_TRAIN_BATCHES = 20000
+    NUM_TRAIN_BATCHES = 30000
 
     # Number of test characters of text to generate after training the network
     LEN_TEST_TEXT = 500
@@ -241,7 +241,7 @@ def main():
         num_layers=num_layers,
         out_size=out_size,
         session=sess,
-        learning_rate=0.0001,
+        learning_rate=0.0003,
         name="char_rnn_network"
     )
     sess.run(tf.global_variables_initializer())
